@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Safety Checker</title>
+    <link rel="stylesheet" href ="/static/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>🔐 smart URL Safety Checker</h1>
+
+            <form method="POST">
+                <input type="text" name="url" placeholder="Enter URL here..." required>
+                <button type="submit">check</button>
+                </form>
+
+                {%if score is defined %}
+                <div class="result">
+                    <h2>Result for: {{url}}</h2>
+                    <p><strong>Risk Score:</strong> {{score}}/100</p>
+                    <p><strong>Status:</strong> {{status}}</p>
+                    <h3>Reasons:</h3>
+                    <ul>
+                        {% for reason in reason %}
+                        <li>{{reason }}</li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    {% endif %}
+                    </div>
+</body>
+</html>

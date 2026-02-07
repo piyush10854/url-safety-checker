@@ -1,31 +1,141 @@
+/* ===== Global Styling ===== */
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
     text-align: center;
 }
 
+/* ===== Container ===== */
+
 .container {
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
-input {
-    width: 300px;
-    padding: 10px;
+/* ===== Heading ===== */
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
 }
 
-button {
-    padding: 10px 15px;
-    background: #007bff;
-    color: white;
+/* ===== Form Styling ===== */
+
+form {
+    margin-bottom: 30px;
+}
+
+form input {
+    padding: 12px;
+    width: 320px;
+    border-radius: 8px;
     border: none;
-    cursor: pointer;
+    outline: none;
+    font-size: 14px;
 }
+
+form button {
+    padding: 12px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+form button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #0072ff, #00c6ff);
+}
+
+/* ===== Result Section ===== */
 
 .result {
-    margin-top: 20px;
-    background: white;
-    padding: 20px;
-    display: inline-block;
-    text-align: left;
+    margin-top: 40px;
 }
 
+/* ===== Gauge Container ===== */
+
+.gauge {
+    width: 320px;
+    height: 30px;
+    background: #1e1e1e;
+    border-radius: 50px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* ===== Animated Fill ===== */
+
+.gauge-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, green, yellow, red);
+    transition: width 1s ease-in-out;
+}
+
+/* ===== Score Text ===== */
+
+.gauge-cover {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* ===== Risk Status Text ===== */
+
+h2 {
+    margin-top: 20px;
+}
+
+/* ===== Risk Reasons List ===== */
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+ul li {
+    background: rgba(255, 255, 255, 0.1);
+    margin: 8px auto;
+    padding: 8px 12px;
+    width: 320px;
+    border-radius: 6px;
+    font-size: 14px;
+    backdrop-filter: blur(4px);
+}
+
+/* ===== Responsive Design ===== */
+
+@media (max-width: 500px) {
+    form input {
+        width: 80%;
+        margin-bottom: 10px;
+    }
+
+    form button {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .gauge {
+        width: 90%;
+    }
+
+    ul li {
+        width: 90%;
+    }
+}

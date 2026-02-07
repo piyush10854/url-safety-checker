@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 render_template, request
 import re
 from urllib.parse import urlparse
@@ -7,6 +7,11 @@ app = Flask(__name__)
 def analyze_url(url):
     score = 0
     reason = []
+
+    #Normalize URL
+    if not url.startswith('http'):
+        url = 'http://' + url 
+    parsed = urlparse(url) 
 
     # check length 
     if len(url) > 75:
@@ -57,10 +62,21 @@ def home():
     if request.method == 'POST':
         url = request.form['url']
         score, status, reasons = analyze_url(url)
+
         return render_template('index.html',score = score, status = status, reasons = reasons, url = url)
     return render_template('index.html')
 
+@app.route('/api/check')
+def api_check():
+    url = request.args.get('url')
+    if not url:
+        return jsonify({'error': 'No URL provided'}), 400
+    score, status, reasons = analyze_url(url)
+    return jsonify({'url': url, 'score': score, 'status': status, 'reasons': reasons})
+
+
 if __name__== '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
+    
     
     

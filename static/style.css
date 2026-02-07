@@ -1,141 +1,141 @@
-/* ===== Global Styling ===== */
-
 body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: radial-gradient(circle at top, #0f2027, #203a43, #000000);
     color: white;
     text-align: center;
 }
 
-/* ===== Container ===== */
-
+/* Container */
 .container {
-    margin-top: 80px;
+    margin-top: 60px;
 }
 
-/* ===== Heading ===== */
-
-h1 {
-    font-size: 36px;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
+/* Typing Animation */
+.typing {
+    overflow: hidden;
+    border-right: 3px solid #00ffff;
+    white-space: nowrap;
+    width: 0;
+    margin: auto;
+    animation: typing 3s steps(30, end) forwards, blink 0.8s infinite;
 }
 
-/* ===== Form Styling ===== */
-
-form {
-    margin-bottom: 30px;
+@keyframes typing {
+    to { width: 350px; }
 }
 
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* Form */
 form input {
     padding: 12px;
     width: 320px;
     border-radius: 8px;
     border: none;
     outline: none;
-    font-size: 14px;
 }
 
 form button {
     padding: 12px 20px;
     margin-left: 10px;
-    border: none;
     border-radius: 8px;
-    background: linear-gradient(45deg, #00c6ff, #0072ff);
-    color: white;
+    border: none;
+    background: #00ffff;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.3s ease;
+    transition: 0.3s;
 }
 
 form button:hover {
+    background: #00b3b3;
     transform: scale(1.05);
-    background: linear-gradient(45deg, #0072ff, #00c6ff);
 }
 
-/* ===== Result Section ===== */
-
-.result {
-    margin-top: 40px;
-}
-
-/* ===== Gauge Container ===== */
-
-.gauge {
-    width: 320px;
-    height: 30px;
-    background: #1e1e1e;
-    border-radius: 50px;
-    margin: 20px auto;
+/* Result Card */
+.result-card {
+    margin: 40px auto;
+    padding: 25px;
+    width: 380px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,255,255,0.5);
+    backdrop-filter: blur(8px);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-/* ===== Animated Fill ===== */
+/* Status Glow Colors */
+.status.safe {
+    color: #00ff88;
+    text-shadow: 0 0 10px #00ff88;
+}
+
+.status.suspicious {
+    color: #ffcc00;
+    text-shadow: 0 0 10px #ffcc00;
+}
+
+.status.high-risk {
+    color: #ff3b3b;
+    text-shadow: 0 0 10px #ff3b3b;
+}
+
+/* Scan Line Animation */
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #00ffff;
+    animation: scan 3s linear infinite;
+}
+
+@keyframes scan {
+    0% { top: 0; }
+    100% { top: 100%; }
+}
+
+/* Gauge */
+.gauge {
+    width: 100%;
+    height: 25px;
+    background: #111;
+    border-radius: 50px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
 
 .gauge-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, green, yellow, red);
-    transition: width 1s ease-in-out;
+    background: linear-gradient(90deg, #00ff88, #ffcc00, #ff3b3b);
+    transition: width 1.2s ease-in-out;
 }
-
-/* ===== Score Text ===== */
 
 .gauge-cover {
     position: absolute;
     width: 100%;
     text-align: center;
-    line-height: 30px;
+    line-height: 25px;
     font-weight: bold;
-    font-size: 14px;
 }
 
-/* ===== Risk Status Text ===== */
-
-h2 {
-    margin-top: 20px;
-}
-
-/* ===== Risk Reasons List ===== */
-
+/* Reasons */
 ul {
     list-style: none;
     padding: 0;
-    margin-top: 15px;
 }
 
 ul li {
-    background: rgba(255, 255, 255, 0.1);
-    margin: 8px auto;
-    padding: 8px 12px;
-    width: 320px;
+    background: rgba(255,255,255,0.08);
+    margin: 6px 0;
+    padding: 6px;
     border-radius: 6px;
     font-size: 14px;
-    backdrop-filter: blur(4px);
-}
-
-/* ===== Responsive Design ===== */
-
-@media (max-width: 500px) {
-    form input {
-        width: 80%;
-        margin-bottom: 10px;
-    }
-
-    form button {
-        margin-left: 0;
-        margin-top: 10px;
-    }
-
-    .gauge {
-        width: 90%;
-    }
-
-    ul li {
-        width: 90%;
-    }
 }

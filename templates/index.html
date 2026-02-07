@@ -7,7 +7,8 @@
 <body>
 
 <div class="container">
-    <h1>🔐 Smart URL Safety Checker</h1>
+
+    <h1 class="typing">🔐 Smart URL Safety Checker</h1>
 
     <form method="POST">
         <input type="text" name="url" placeholder="Enter website URL..." required>
@@ -15,9 +16,16 @@
     </form>
 
     {% if score is not none %}
-    <div class="result">
-        <h2>Status: {{ status }}</h2>
+    <div class="result-card">
 
+        <h2 class="status {{ status|lower|replace(' ', '-') }}">
+            Status: {{ status }}
+        </h2>
+
+        <!-- Animated Scan Effect -->
+        <div class="scan-line"></div>
+
+        <!-- Risk Bar -->
         <div class="gauge">
             <div class="gauge-fill" data-score="{{ score }}"></div>
             <div class="gauge-cover">{{ score }}%</div>
@@ -29,20 +37,19 @@
                 <li>{{ reason }}</li>
             {% endfor %}
         </ul>
+
     </div>
     {% endif %}
 </div>
 
-<!-- ✅ JavaScript for Dynamic Width -->
 <script>
     const fill = document.querySelector(".gauge-fill");
 
     if (fill) {
         const score = fill.getAttribute("data-score");
-
         setTimeout(() => {
             fill.style.width = score + "%";
-        }, 200);
+        }, 300);
     }
 </script>
 

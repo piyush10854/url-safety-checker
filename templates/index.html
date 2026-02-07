@@ -1,56 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Smart URL Safety Checker</title>
+    <title>URL Safety Checker</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
 <div class="container">
-
-    <h1 class="typing">🔐 Smart URL Safety Checker</h1>
+    <h1>🔐 URL Safety Checker</h1>
 
     <form method="POST">
-        <input type="text" name="url" placeholder="Enter website URL..." required>
+        <input type="text" name="url" placeholder="Enter URL..." required>
         <button type="submit">Analyze</button>
     </form>
 
     {% if score is not none %}
-    <div class="result-card">
 
-        <h2 class="status {{ status|lower|replace(' ', '-') }}">
-            Status: {{ status }}
-        </h2>
+    <div class="result-box">
 
-        <!-- Animated Scan Effect -->
-        <div class="scan-line"></div>
+        <div class="gauge-container">
+            <div class="gauge">
+                <div class="gauge-fill" data-score="{{ score }}"></div>
+                <div class="needle" id="needle"></div>
+                <div class="gauge-center"></div>
+            </div>
 
-        <!-- Risk Bar -->
-        <div class="gauge">
-            <div class="gauge-fill" data-score="{{ score }}"></div>
-            <div class="gauge-cover">{{ score }}%</div>
+            <div class="score-text">
+                Risk Score: <span id="score-number">0</span>%
+            </div>
         </div>
 
-        <h3>Risk Reasons:</h3>
-        <ul>
-            {% for reason in reasons %}
+        <div class="status-text">
+            {% if score < 30 %}
+                <p class="safe">🟢 Safe Website</p>
+            {% elif score < 70 %}
+                <p class="warning">🟡 Suspicious Website</p>
+            {% else %}
+                <p class="danger">🔴 High Risk Website</p>
+            {% endif %}
+        </div>
+
+        <div class="reasons">
+            <h3>Analysis Details:</h3>
+            <ul>
+                {% for reason in reasons %}
                 <li>{{ reason }}</li>
-            {% endfor %}
-        </ul>
+                {% endfor %}
+            </ul>
+        </div>
 
     </div>
     {% endif %}
 </div>
 
 <script>
-    const fill = document.querySelector(".gauge-fill");
+const needle = document.getElementById("needle");
+const fill = document.querySelector(".gauge-fill");
+const scoreText = document.getElementById("score-number");
 
-    if (fill) {
-        const score = fill.getAttribute("data-score");
-        setTimeout(() => {
-            fill.style.width = score + "%";
-        }, 300);
+if (fill) {
+    const score = parseInt(fill.getAttribute("data-score"));
+
+    // Animate counter
+    let count = 0;
+    const counter = setInterval(() => {
+        if (count >= score) {
+            clearInterval(counter);
+        } else {
+            count++;
+            scoreText.innerText = count;
+        }
+    }, 15);
+
+    // Animate fill
+    setTimeout(() => {
+        fill.style.width = score + "%";
+    }, 300);
+
+    // Rotate needle
+    const rotation = (score / 100) * 180 - 90;
+    setTimeout(() => {
+        needle.style.transform = `rotate(${rotation}deg)`;
+    }, 300);
+
+    // Dynamic color gradient
+    if (score < 30) {
+        fill.style.background = "linear-gradient(to right, #00ff88, #00cc66)";
+    } else if (score < 70) {
+        fill.style.background = "linear-gradient(to right, #ffcc00, #ff9900)";
+    } else {
+        fill.style.background = "linear-gradient(to right, #ff4d4d, #cc0000)";
     }
+}
 </script>
 
 </body>

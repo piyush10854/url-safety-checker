@@ -1,82 +1,51 @@
-from flask import Flask, jsonify, render_template, request
-render_template, request
+from flask import Flask, render_template, request
 import re
-from urllib.parse import urlparse
 
 app = Flask(__name__)
+
 def analyze_url(url):
     score = 0
-    reason = []
+    reasons = []
 
-    #Normalize URL
-    if not url.startswith('http'):
-        url = 'http://' + url 
-    parsed = urlparse(url) 
-
-    # check length 
     if len(url) > 75:
-        score += 15
-        reason.append("URL is too long")
+        score += 20
+        reasons.append("URL is very long.")
 
-    # check for suspicious keywords
-    suspicious_words = ['login', 'verify', 'update', 'free', 'bank', 'secure']
+    if "@" in url:
+        score += 20
+        reasons.append("URL contains '@' symbol.")
+
+    if "-" in url:
+        score += 10
+        reasons.append("URL contains '-' which is common in phishing.")
+
+    if not url.startswith("https"):
+        score += 25
+        reasons.append("Website does not use HTTPS.")
+
+    suspicious_words = ["login", "verify", "update", "bank", "secure"]
     for word in suspicious_words:
         if word in url.lower():
-            score += 20
-            reason.append(f'contains suspicious keyword: {word}')
-            break 
+            score += 15
+            reasons.append(f"Contains suspicious word: {word}")
 
-    # check for IP address usage
-    parsed = urlparse(url)
-    if re.match(r'\d+\.\d+\.\d+\.\d+', parsed.netloc):
-        score += 25
-        reason.append('Uses IP address instead of domain ')
+    if score > 100:
+        score = 100
 
-    # check for multiple subdomains
-    if parsed.netloc.count('.') > 3:
-        score += 15 
-        reason.append('too many subdomains')
-    
-    # check @ symbol
-    if '@' in url:
-        score += 20
-        reason.append('contains "@" symbol ')
+    return score, reasons
 
-    #check HTTPS
-    if parsed.scheme != 'https':
-        score += 10
-        reason.append('not using HTTPS')
-    
-    #classification 
-    if score<= 30:
-        status = 'Safe 🎉'
-    elif score <= 60:
-        status = 'Suspicious ⚠️'
-    else: 
-        status = 'High Risk 🚨'
 
-    return score, reason, status 
-
-@app.route('/', methods =['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def home():
-    if request.method == 'POST':
-        url = request.form['url']
-        score, status, reasons = analyze_url(url)
+    score = None
+    reasons = []
 
-        return render_template('index.html',score = score, status = status, reasons = reasons, url = url)
-    return render_template('index.html')
+    if request.method == "POST":
+        url = request.form["url"]
+        score, reasons = analyze_url(url)
 
-@app.route('/api/check')
-def api_check():
-    url = request.args.get('url')
-    if not url:
-        return jsonify({'error': 'No URL provided'}), 400
-    score, status, reasons = analyze_url(url)
-    return jsonify({'url': url, 'score': score, 'status': status, 'reasons': reasons})
+    return render_template("index.html", score=score, reasons=reasons)
 
 
-if __name__== '__main__':
-    app.run(host='0.0.0.0', port=5000)
-    
-    
-    
+if __name__ == "__main__":
+    app.run(debug=True)

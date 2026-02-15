@@ -1,102 +1,126 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #141e30, #243b55);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: white;
+    background: radial-gradient(circle at top, #0f2027, #0a0f1c);
+    color: #ffffff;
 }
 
-.container {
-    background: rgba(255, 255, 255, 0.08);
-    padding: 40px;
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    width: 450px;
+/* Header */
+.navbar {
+    padding: 20px;
     text-align: center;
-    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    font-size: 22px;
+    font-weight: bold;
+    background: #0d1117;
+    border-bottom: 2px solid #00f5ff;
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px #00f5ff;
 }
 
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+/* Glass Card */
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+    margin-bottom: 25px;
+}
+
+/* Input */
 input {
-    width: 100%;
+    width: 70%;
     padding: 12px;
     border-radius: 8px;
     border: none;
-    margin-bottom: 15px;
+    background: #1c1f26;
+    color: white;
     font-size: 16px;
+    outline: none;
 }
 
 button {
-    width: 100%;
-    padding: 12px;
+    padding: 12px 20px;
     border-radius: 8px;
     border: none;
     font-weight: bold;
     cursor: pointer;
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    color: white;
+    background: #00f5ff;
+    color: #000;
+    margin-left: 10px;
     transition: 0.3s;
+    box-shadow: 0 0 10px #00f5ff;
 }
 
 button:hover {
     transform: scale(1.05);
+    box-shadow: 0 0 20px #00f5ff;
 }
 
-.gauge {
-    position: relative;
-    width: 250px;
-    height: 125px;
-    margin: 20px auto;
-    border-radius: 250px 250px 0 0;
-    background: #ddd;
-    overflow: hidden;
+/* Grid */
+.result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
-.gauge-fill {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-    width: 0%;
-    border-radius: 250px 250px 0 0;
-    transition: width 1s ease-in-out;
-}
-
-.needle {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 4px;
-    height: 110px;
-    background: black;
-    transform-origin: bottom center;
-    transform: rotate(-90deg);
-    transition: transform 1s ease-in-out;
-}
-
-.gauge-center {
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 18px;
-    height: 18px;
-    background: black;
-    border-radius: 50%;
-}
-
-.score-text {
-    font-size: 22px;
+/* Risk Meter */
+.risk-score {
+    font-size: 40px;
     font-weight: bold;
 }
 
-.safe { color: #00ff88; }
-.warning { color: #ffcc00; }
-.danger { color: #ff4d4d; }
+/* Status */
+.status {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 10px;
+}
 
-.reasons {
-    text-align: left;
-    margin-top: 15px;
+.safe {
+    background: rgba(0,255,136,0.15);
+    color: #00ff88;
+    box-shadow: 0 0 10px #00ff88;
+}
+
+.warning {
+    background: rgba(255,204,0,0.15);
+    color: #ffcc00;
+    box-shadow: 0 0 10px #ffcc00;
+}
+
+.danger {
+    background: rgba(255,0,0,0.15);
+    color: #ff4d4d;
+    box-shadow: 0 0 15px #ff0000;
+}
+
+/* Threat Log */
+.logs {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.logs li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #8892b0;
+    font-size: 14px;
 }

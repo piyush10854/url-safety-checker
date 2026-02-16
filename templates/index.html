@@ -3,6 +3,7 @@
 <head>
     <title>URL Safety Checker</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -62,26 +63,31 @@
 <audio id="alertSound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>  <!-- Alert sound for high risk-->
 <script>
 window.onload = function() {
+
+    // Hide scanner after load
+    const scanner = document.getElementById("scanner");
+    if (scanner) {
+        scanner.classList.add("hidden");
+    }
+
+    // Play alert sound if high risk
     const highRisk = document.querySelector(".danger");
     if (highRisk) {
-        document.getElementById("alertSound").play();
+        const audio = document.getElementById("alertSound");
+        audio.play().catch(() => {
+            console.log("Autoplay blocked by browser");
+        });
     }
 };
-</script>
 
-
-<script>
+// Show scanner on form submit
 const form = document.querySelector("form");
-const scanner = document.getElementById("scanner");
-
 form.addEventListener("submit", function() {
+    const scanner = document.getElementById("scanner");
     scanner.classList.remove("hidden");
 });
-
-window.onload = function() {
-    scanner.classList.add("hidden");
-};
 </script>
+
 
 
 </body>

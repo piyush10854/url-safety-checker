@@ -19,6 +19,12 @@
         </form>
     </div>
 
+    <div id="scanner" class="scanner hidden">
+    <p>🔎 Scanning URL...</p>
+    <div class="scan-bar"></div>
+    </div>
+
+
     {% if score is not none %}
     <div class="result-grid">
 
@@ -35,7 +41,7 @@
             {% endif %}
         </div>
 
-        <div class="card">
+        <div class="card">   
             <h3>Threat Analysis Logs</h3>
             <ul class="logs">
                 {% for reason in reasons %}
@@ -50,8 +56,32 @@
 </div>
 
 <div class="footer">
-    © 2026 LinkShield | Cyber Carnival Hackathon
+    © 2026 LinkShield | Cyber Carnival Hackathon  
 </div>
+
+<audio id="alertSound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>  <!-- Alert sound for high risk-->
+<script>
+window.onload = function() {
+    const highRisk = document.querySelector(".danger");
+    if (highRisk) {
+        document.getElementById("alertSound").play();
+    }
+};
+</script>
+
+
+<script>
+const form = document.querySelector("form");
+const scanner = document.getElementById("scanner");
+
+form.addEventListener("submit", function() {
+    scanner.classList.remove("hidden");
+});
+
+window.onload = function() {
+    scanner.classList.add("hidden");
+};
+</script>
 
 
 </body>

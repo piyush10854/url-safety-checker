@@ -19,7 +19,7 @@ LinkShield is a rule-based URL safety checker that detects suspicious URLs using
 - Gunicorn
 
 ## Deployment
-Live Demo: (Add your Render link here)
+Live Demo: https://url-safety-checker-wgeq.onrender.com
 
 ## Author
 Piyush Pandey
